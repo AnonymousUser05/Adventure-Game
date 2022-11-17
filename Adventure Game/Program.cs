@@ -287,7 +287,7 @@ namespace PizariaAdventure
             return square;
         }
 
-        static int Square15()
+        static int Square15(int playerHealth)
         {
             int square = 15;
             Console.Write("You are under a bridge " +
@@ -300,7 +300,7 @@ namespace PizariaAdventure
             string hoboAction = Console.ReadLine();
             switch (hoboAction)
             {
-                case "1": Console.Write(HoboFight()); break;
+                case "1": Console.Write(HoboFight(playerHealth)); break;
                     //case "2": Console.Write(HoboRun()); break;
                     //case "3": Console.Write(HoboMoney()); break;
             }
@@ -404,20 +404,54 @@ namespace PizariaAdventure
             return square;
         }
 
-        static int HoboFight()
+        static int HoboFight(int playerHealth)
         {
-            Console.WriteLine("The hobo lunges at you, shattered bottle in hand");
-            Console.WriteLine("Do you dodge (1), or punch him(2)");
 
+            Console.WriteLine("You and the Hobo stare at each other, a classsic Mexican standoff");
+
+            int health = 100;
             Random random1to6int = new Random();
-            int num = random1to6int.Next(1, 6);
+
+            //picking who attacks first
+            Random random1to2int = new Random();
+            int num1 = random1to2int.Next(1, 2);
+
+            //hobo goes first
+            if (num1 == 1)
+            {
+                Console.WriteLine("The Hobo moves first");
+                
+                {
+                    Console.WriteLine("the hobo swings bottle in hand");
+                    int num2 = random1to6int.Next(1, 6);
+                    if (num2 > 4)
+                    {
+                        Console.WriteLine("The Hobo Missed!");
+                    }
+                    else if (num2 == 4)
+                    {
+                        Console.WriteLine("The Hobo got a critical Hit!");
+                        playerHealth = playerHealth - 20;
+                    }
+                    else
+                    {
+                        Console.WriteLine("The Hobo got a Hit!");
+                        playerHealth = playerHealth - 10;
+                    }
+                }
+
+            }
+            
+            // actual fight
+
+            int num3 = random1to6int.Next(1, 6);
 
             string attack = Console.ReadLine();
             if (attack == "1")
             {
 
             }
-            return num;
+            return playerHealth;
         }
 
         static void Pockets(List<string> backpack, string item)
@@ -463,7 +497,7 @@ namespace PizariaAdventure
                 else
                 {
                     bankCurrency = bankCurrency - withdrawValue;
-
+                    //Pockets(backpack,  withdrawValue);
                 }
             }
             return bankCurrency;
@@ -474,6 +508,7 @@ namespace PizariaAdventure
             Console.WriteLine("Moving is N, S, E, W \n");
             int bankCurrency = 100;
             int square = 3;
+            int playerHealth = 100;
 
             List<string> Inventory = new List<string>();
 
@@ -496,7 +531,7 @@ namespace PizariaAdventure
                     case 12: square = Square12(); break;
                     case 13: square = Square13(); break;
                     case 14: square = Square14(); break;
-                    case 15: square = Square15(); break;
+                    case 15: square = Square15(playerHealth); break;
                     case 16: square = Square16(); break;
                     case 17: square = Square17(); break;
                     case 18: square = Square18(); break;
