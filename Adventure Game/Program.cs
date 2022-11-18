@@ -408,8 +408,8 @@ namespace PizariaAdventure
         {
 
             Console.WriteLine("You and the Hobo stare at each other, a classsic Mexican standoff");
-
-            int health = 100;
+            
+            int hoboHealth = 100;
             Random random1to6int = new Random();
 
             //picking who attacks first
@@ -423,6 +423,8 @@ namespace PizariaAdventure
                 
                 {
                     Console.WriteLine("the hobo swings bottle in hand");
+
+                    //Hit, miss or crit
                     int num2 = random1to6int.Next(1, 6);
                     if (num2 > 4)
                     {
@@ -442,15 +444,34 @@ namespace PizariaAdventure
 
             }
             
-            // actual fight
-
-            int num3 = random1to6int.Next(1, 6);
-
-            string attack = Console.ReadLine();
-            if (attack == "1")
+            // actual fight (player first)
+            
+            while (playerHealth > 0 || hoboHealth > 0)
             {
+                Console.WriteLine("Your health = " + playerHealth);
+                Console.WriteLine("Hobo health = " + hoboHealth);
 
+                Console.WriteLine("It's your turn Would you like to \ndodge (1) /nPunch (2) /nKick 2 (3) /n> ");
+                string attack = Console.ReadLine();
+
+
+                if (attack == "1")
+                {
+                    Console.WriteLine("you ready yourself to jump out of the way");
+                }
+
+                else if (attack == "2")
+                {
+                    Console.WriteLine("You throw a punch at the hobo");
+
+                    int num3 = random1to6int.Next(1, 6);
+                    if (num3 == 1)
+                    {
+
+                    }
+                }
             }
+
             return playerHealth;
         }
 
